@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valentine Quiz 💘</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 0;
+  color: #e63946;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.option {
+  background: #ffe3e8;
+}
+
+button.option:hover {
+  background: #ffc2d1;
+}
+
+button#yesBtn, button#noBtn {
+  font-weight: bold;
+  background: #f1f1f1;
+}
+
+.hidden {
+  display: none;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  resize: none;
+}
+
+.checkbox-area {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.blast {
+  font-size: 40px;
+  animation: blast 0.6s infinite alternate;
+}
+
+@keyframes blast {
+  from { transform: scale(1); }
+  to { transform: scale(1.3); }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- START -->
+<div class="card" id="startCard">
+  <h2>Valentine Quiz 💘</h2>
+  <p>Are you ready for something exciting muddu 😚😝❣️ 
+  INSTUCTIONS:
+  Stay till the end and dont forget to share through whatsapp at the end</p>
+  
+  <button onclick="startQuiz()">Yess 😍</button>
+</div>
+
+<!-- QUIZ -->
+<div class="card hidden" id="quizCard">
+  <h2>Valentine Quiz 💘</h2>
+  <div id="questionArea"></div>
+</div>
+
+<!-- FINAL QUESTION -->
+<div class="card hidden" id="finalCard">
+  <h2>Valentine Quiz 💘</h2>
+  <p>Will you be my Valentine? 💖</p>
+  <button id="yesBtn" onclick="yesClicked()">YES 💘</button>
+  <button id="noBtn" onclick="noClicked()">NO 😤</button>
+</div>
+
+<!-- RESULT -->
+<div class="card hidden" id="resultCard">
+  <div class="blast">🎆💥💖</div>
+  <h2>Yayy..!! Congratulations 🥳</h2>
+  <p>
+    Thank you for being my Valentine ❤️<br>
+    and making my life better 🌸<br><br>
+    Sorry for whatever I have hurt you 🥹💞
+    always be mine forever muddu gube i love you then now and forever 🥹💞r<br>
+    ❤️
+  </p>
+</div>
+
+</div>
+
+<script>
+const WHATSAPP_NUMBER = "918123673897";
+
+let answers = {};
+let current = 0;
+
+const questions = [
+  {
+    q: "When did I first propose you?",
+    options: ["Ugadi Habba", "Ganesha Chaturthi", "Christmas", "Diwali"],
+    correct: "Ganesha Chaturthi"
+  },
+  {
+    q: "What was the first gift I gave you?",
+    options: ["Bracelet", "Kiss", "Chocolate", "Nothing"],
+    correct: "Chocolate"
+  },
+  {
+    q: "If I were to take you to a place we already went, where?",
+    options: ["Mantri Mall 👻", "Phurr Restaurant 🍽️", "Magic Moments 💞", "No where 👎🏻"]
+  },
+  {
+    q: "Where do you like to travel with me?",
+    options: ["Switzerland", "Italy", "Maldives", "Manali"]
+  },
+  {
+    q: "What do I love the most in you?",
+    options: ["Lips 👄", "Eyes 👀", "Waist 😝", "Boobie 👻"],
+    correct: "Eyes 👀"
+  },
+  {
+    q: "What character of yours do you think I hate the most in you?",
+    options: [
+      "You ignoring me",
+      "Not flirting me back",
+      "You lying me",
+      "Your attitude"
+    ],
+    correct: "You lying me"
+  },
+  {
+    q: "Consider this as a suggestion / complaint box 💌",
+    type: "text"
+  }
+];
+
+function startQuiz() {
+  document.getElementById("startCard").classList.add("hidden");
+  document.getElementById("quizCard").classList.remove("hidden");
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = questions[current];
+  let html = `<p>${q.q}</p>`;
+
+  if (q.type === "text") {
+    html += `
+      <div class="checkbox-area">
+        <input type="checkbox" id="consent"> I want to share my feelings ❤️
+      </div>
+      <textarea id="textAnswer" maxlength="250"
+      placeholder="Type your feelings here (max 250 words)..."></textarea>
+      <button onclick="submitText()">Submit 💌</button>
+    `;
+  } else {
+    q.options.forEach(o => {
+      html += `<button class="option" onclick="selectAnswer('${o}')">${o}</button>`;
+    });
+  }
+
+  document.getElementById("questionArea").innerHTML = html;
+}
+
+function selectAnswer(ans) {
+  answers["Q" + (current + 1)] = ans;
+
+  if (questions[current].correct) {
+    alert(ans === questions[current].correct
+      ? "Yep..!! Correct..❣️"
+      : "Wrong answer 😡 I'll kill u after the quiz");
+  } else {
+    alert("Ok noted dear..!! 😊");
+  }
+
+  next();
+}
+
+function submitText() {
+  const checked = document.getElementById("consent").checked;
+  const text = document.getElementById("textAnswer").value.trim();
+
+  if (!checked) {
+    alert("Please tick the checkbox before submitting ❤️");
+    return;
+  }
+
+  answers["Suggestion_Box"] = text || "No message typed";
+  next();
+}
+
+function next() {
+  current++;
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    document.getElementById("quizCard").classList.add("hidden");
+    document.getElementById("finalCard").classList.remove("hidden");
+  }
+}
+
+function noClicked() {
+  alert("Invalid choice 😒🙂‍↔️\nSystem detects that you are already my Valentine 💖");
+}
+
+function yesClicked() {
+  let msg =
+    "💖 SHE SAID YES 💖\n\nHer Answers:\n" +
+    Object.entries(answers).map(a => a[0] + ": " + a[1]).join("\n") +
+    "\n\nThank you for being my Valentine ❤️";
+
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+
+  document.getElementById("finalCard").classList.add("hidden");
+  document.getElementById("resultCard").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
