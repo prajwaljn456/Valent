@@ -246,7 +246,7 @@ function noClicked() {
   alert("Invalid choice 😒🙂‍↔️\nSystem detects that you are already my Valentine 💖");
 }
 
-function yesClicked() {
+/*function yesClicked() {
   let msg =
     "💖 SHE SAID YES 💖\n\nHer Answers:\n" +
     Object.entries(answers).map(a => a[0] + ": " + a[1]).join("\n") +
@@ -259,7 +259,25 @@ function yesClicked() {
 
   document.getElementById("finalCard").classList.add("hidden");
   document.getElementById("resultCard").classList.remove("hidden");
-}
+}*/
+  function yesClicked() {
+  let msg =
+    "💖 SHE SAID YES 💖\n\nHer Answers:\n" +
+    Object.entries(answers).map(a => a[0] + ": " + a[1]).join("\n") +
+    "\n\nThank you for being my Valentine ❤️";
+
+  // Show final card first
+  document.getElementById("finalCard").classList.add("hidden");
+  document.getElementById("resultCard").classList.remove("hidden");
+
+  // ⏳ Wait 5 seconds before opening WhatsApp
+  setTimeout(() => {
+    window.open(
+      "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg),
+      "_blank"
+    );
+  }, 5000); // 5000ms = 5 seconds
+  }
 </script>
 
 </body>
