@@ -110,7 +110,7 @@ textarea {
 <!-- FINAL QUESTION -->
 <div class="card hidden" id="finalCard">
   <h2>Valentine Quiz 💘</h2>
-  <p>im sure that my life will always be better with u 🫠 please bear my anger my tharkiness and my stupidity slap me if there's my fault but dont stop talking☺️<br> Will you be my Valentine forever? 💖 <br> </p>
+  <p>im sure that my life will always be better with u 🫠🌸 please bear my anger my tharkiness and my stupidity slap me if there's my fault but dont stop talking☺️<br> Will you be my Valentine forever? 💖 <br> </p>
   <button id="yesBtn" onclick="yesClicked()">YES 💘</button>
   <button id="noBtn" onclick="noClicked()">NO 😤</button>
 </div>
@@ -121,12 +121,19 @@ textarea {
   <h2>Yayy..!! Congratulations 🥳</h2>
 <h2>Happy valentine's day my 💕 😘</h2>
   <p>
-    Thank you for being my Valentine ❤️<br>
-    im pretty sure my life is always better 🌸<br><br>
-    Sorry for whatever I have hurt you 🥹💞
-    always be mine forever muddu gube i love you then now and forever 🥹💞r<br>
+    Thank you for being my Valentine ❤️<br> 
+    Sorry for whatever I have hurt you 🥹💞<br>
+    always be mine forever muddu gube i love you then now and forever 🥹💞<br>
     ❤️
   </p>
+  <button id="continueBtn" onclick="continueToWhatsApp()" style="
+  margin-top: 15px;
+  background: #e63946;
+  color: white;
+  font-weight: bold;
+">
+  Continue ➡️ WhatsApp 💬
+  </button>
 </div>
 
 </div>
@@ -246,21 +253,26 @@ function noClicked() {
   alert("Invalid choice 😒🙂‍↔️\nSystem detects that you are already my Valentine 💖");
 }
 
-/*function yesClicked() {
-  let msg =
+let finalMsg = "";
+
+function yesClicked() {
+  finalMsg =
     "💖 SHE SAID YES 💖\n\nHer Answers:\n" +
     Object.entries(answers).map(a => a[0] + ": " + a[1]).join("\n") +
     "\n\nThank you for being my Valentine ❤️";
 
-  window.open(
-    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg),
-    "_blank"
-  );
-
+  // Show result screen
   document.getElementById("finalCard").classList.add("hidden");
   document.getElementById("resultCard").classList.remove("hidden");
-}*/
-  function yesClicked() {
+}
+
+function continueToWhatsApp() {
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(finalMsg),
+    "_blank"
+  );
+}
+ /* function yesClicked() {
   let msg =
     "💖 SHE SAID YES 💖\n\nHer Answers:\n" +
     Object.entries(answers).map(a => a[0] + ": " + a[1]).join("\n") +
@@ -277,7 +289,7 @@ function noClicked() {
       "_blank"
     );
   }, 5000); // 5000ms = 5 seconds
-  }
+  }*/
 </script>
 
 </body>
